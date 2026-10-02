@@ -2,11 +2,13 @@ import { Document, Model } from 'mongoose';
 import { UserTypes } from '../enums/user';
 
 export interface IUser extends Document {
-  fullname: string;
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password?: string;
   country: string;
+  avatar?: string;
+  otp?: string;
+  otpExpiresAt?: Date;
   role?: UserTypes;
   isVIP?: boolean;
   vipType?: string;
@@ -15,8 +17,7 @@ export interface IUser extends Document {
 }
 
 export interface IUserModel extends Model<IUser> {
-  isEmailTaken(email: string): Promise<boolean>;
-  isUsernameTaken(username: string): Promise<boolean>;
+  isEmailTaken(email: string, excludeUserId?: any): Promise<boolean>;
 }
 
 export interface AuthResult {
